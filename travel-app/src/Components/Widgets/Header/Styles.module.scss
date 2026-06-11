@@ -1,0 +1,69 @@
+.header {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+  display: grid;
+}
+
+.cover {
+  max-width: 1170px;
+  width: 100%;
+  display: flex;
+  z-index: 10;
+  color: var(--white-color);
+  padding: 29px 0;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--light-white-color);
+
+  &__subtitle {
+    font-size: 33.88px;
+    font-weight: 500;
+    letter-spacing: 14.5%;
+    line-height: 125%;
+  }
+
+  &__button {
+    background-color: inherit;
+    color: var(--white-color);
+    font-family: var(--poppins);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 183%;
+  }
+}
+
+.cover_logo {
+  display: flex;
+  gap: 16.07px;
+  align-items: baseline;
+}
+
+.title {
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  line-height: 150%;
+  color: var(--white-color);
+  font-family: var(--poppins);
+  font-weight: 700;
+  font-size: 48px;
+  text-transform: uppercase;
+  padding-top: 108px;
+  padding-bottom: 142px;
+}
