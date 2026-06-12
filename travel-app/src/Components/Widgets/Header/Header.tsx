@@ -1,11 +1,12 @@
 // Header.tsx
-import { memo } from "react";
+import { memo, useState } from "react";
 import styles from "./Styles.module.scss";
 import mainTopImg from "../../../Assets/main-top.jpg";
 import logo from "../../../Assets/logo.svg";
 
 const HeaderComponent = () => {
   return (
+    <>
     <header
       className={styles.header}
       style={{ backgroundImage: `url(${mainTopImg})` }}
@@ -22,6 +23,7 @@ const HeaderComponent = () => {
       </nav>
       <h1 className={styles.title}>Там, где мир начинается с путешествий</h1>
     </header>
+    </>
   );
 };
 

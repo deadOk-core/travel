@@ -1,0 +1,73 @@
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // filter: drop-shadow(0px 1px 10px rgba(0, 0, 0, 0.1));
+}
+
+.card_img {
+    height: 288px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    
+}
+
+.text_block {
+  // max-width: 100%;
+  // width: 370px;
+  
+  padding: 25px;
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+//   justify-content: space-between;
+
+    &_cover2 {
+        margin-top: auto;  // ✅ ВСЕГДА прижимает к низу
+    }
+
+
+
+  &_title {
+    font-family: var(--poppins);
+    font-weight: 600;
+    font-size: 18px;
+    padding-bottom: 10px;
+    color: var(--black-color);
+  }
+
+  &_excerpt {
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 183%;
+    color: var(--light-gray-color);
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &_country {
+    font-family: var(--poppins);
+    font-weight: 500;
+    font-size: 14px;
+    padding-bottom: 4px;
+    color: var(--black-color);
+  }
+
+  &_link {
+    font-family: var(--poppins);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 183%;
+    color: var(--yellow-color);
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+  }
+
+}
