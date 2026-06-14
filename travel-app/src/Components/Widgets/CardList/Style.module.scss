@@ -1,8 +1,15 @@
 .cards_list {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 370px));
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
     grid-auto-rows: 552px;
     gap: 30px;
-    padding: 0 375px;
+    // padding: 0 375px;
+    margin-bottom: 50px;
+    max-width: 1170px;
+
+    &__item {
+        align-items: center;
+    }
 }

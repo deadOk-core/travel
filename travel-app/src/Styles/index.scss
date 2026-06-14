@@ -6,6 +6,7 @@
   margin: 0;
   border: 0;
 //   transition: background-color 0.3s ease-out;
+
 }
 
 *,
@@ -14,6 +15,12 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 :focus,
@@ -46,6 +53,7 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   letter-spacing: 0;
+  
 }
 
 input,
@@ -66,6 +74,8 @@ button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+
+
 
 a,
 a:visited {
@@ -127,9 +137,10 @@ body {
   margin: 0;
   font-family: var(--montserrat);
   font-weight: 400;
-  display: flex;
+  // display: flex;
+  // flex-direction: column;
   // align-items: center;
-  justify-content: center;
+  // justify-content: center;
 }
 
 input[type="time"] {

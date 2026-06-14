@@ -13,3 +13,9 @@
   font-weight: 600;
   line-height: 120%;
 }
+
+@mixin centered {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}

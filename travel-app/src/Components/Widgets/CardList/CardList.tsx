@@ -1,43 +1,37 @@
-import { memo, useEffect, useState } from "react";
-import { getPosts, type TGetPosts } from "../../../api/posts/posts";
+import { memo } from "react";
+
 import { Card } from "../Card/Card";
-import styles from './Style.module.scss'
+import styles from "./Style.module.scss";
+import { usePagination, type TCardDataArray } from "../../../Hooks/Pagination";
+import { Paginate } from "../Pagination/Paginate";
+import { Button } from "../Button/Button";
+import type { TGetPosts } from "../../../api/posts/posts.types";
 
-const CardListComponent = () => {
 
+type TCards = {
+  cards: TGetPosts[];
+}
 
+const CardListComponent = ({cards}: TCards) => {
+  const dataCards: TCardDataArray = {
+    data: cards, // Поле должно называться data, а не cards
+  };
 
-
-  const [cards, setCards] = useState<TGetPosts[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  
-
-  useEffect(()=> {
-    async function loadPosts() {
-      try{
-        setLoading(true)
-        const posts = await getPosts()
-        setCards(posts)
-      } catch(error) {
-        setError(error instanceof Error ? error.message : 'Произошла ошибка')
-      } finally {
-        setLoading(false)
-      } 
-    }
-    loadPosts()
-  }, [])
+  const { currentCards, pageCount, setCurrentPage } = usePagination(dataCards);
 
   return (
-    <ul className={styles.cards_list}>
-      {
-        cards.map((card, id) => (
-          <li key={id}>
-            <Card data={card}/>
+    <>
+      <ul className={styles.cards_list}>
+        {currentCards.map((card) => (
+          <li className={styles.cards_list__item} key={card.id}>
+            <Card data={card} />
           </li>
-        ))
-      }
-    </ul>
+        ))}
+      </ul>
+
+      <Paginate pageCount={pageCount} setCurrentPage={setCurrentPage} />
+      <Button centered >Добавить мое путешествие</Button>
+    </>
   );
 };
 

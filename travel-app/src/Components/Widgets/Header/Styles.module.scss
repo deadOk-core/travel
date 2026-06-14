@@ -30,6 +30,7 @@
   color: var(--white-color);
   padding: 29px 0;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid var(--light-white-color);
 
   &__subtitle {
@@ -37,6 +38,8 @@
     font-weight: 500;
     letter-spacing: 14.5%;
     line-height: 125%;
+    color: var(--white-color);
+    
   }
 
   &__button {
