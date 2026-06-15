@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { register } from "../../../api/auth/auth";
+import { login } from "../../../api/auth/auth";
 import { memo } from "react";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Style.module.scss";
@@ -7,7 +7,7 @@ import { Button } from "../Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   email: z.email("Некорректный формат email"),
@@ -21,31 +21,46 @@ const RegisterComponent = () => {
     register: registerField, // переименовываем, чтобы не конфликтовало
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormState>({
     resolver: zodResolver(formSchema),
   });
 
   const loginMutation = useMutation(
     {
-      mutationFn: (data: FormState) => register(data.email, data.password),
+      mutationFn: (data: FormState) => login(data.email, data.password),
+      onError: (error) => {
+        setError("form", {
+          type: "server",
+          message: "Неправильный логин или пароль",
+        });
+      },
     },
     queryClient,
   );
 
   const onSubmit = (data: FormState) => {
     loginMutation.mutate(data);
-    console.log(data)
+    console.log(data);
   };
-
 
   return (
     <>
       <h2 className={styles.title}>Вход в профиль</h2>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      {errors.form && (
+        <span className={styles.form__error} style={{ padding: "10px 0" }}>
+          {errors.form.message}
+        </span>
+      )}
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
         <label className={styles.form__label}>
           <span className={styles.form__title}>Логин</span>
           <input
-            className={styles.form__input}
+            className={`${styles.form__input} ${errors.email && styles.form__input_error}`}
             type="email"
             placeholder="Email"
             autoComplete="email"
@@ -59,7 +74,7 @@ const RegisterComponent = () => {
         <label className={styles.form__label}>
           <span className={styles.form__title}>Пароль</span>
           <input
-            className={styles.form__input}
+            className={`${styles.form__input} ${errors.password && styles.form__input_error}`}
             type="password"
             placeholder="Пароль"
             autoComplete="current-password"
@@ -72,7 +87,9 @@ const RegisterComponent = () => {
           )}
         </label>
         <div className={styles.form__buttons}>
-          <Button color="light">Зарегистрироваться</Button>
+          <Link to={"/register"}>
+            <Button color="light">Зарегистрироваться</Button>
+          </Link>
           <Button color="transparent" type="submit">
             Войти
           </Button>
@@ -82,4 +99,4 @@ const RegisterComponent = () => {
   );
 };
 
-export const Register = memo(RegisterComponent);
+export const Login = memo(RegisterComponent);

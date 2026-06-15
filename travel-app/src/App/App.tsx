@@ -4,8 +4,10 @@ import "./Styles.scss";
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Header } from "../Components/Widgets/Header/Header";
 import { FetchCardList } from "../Components/Widgets/CardList/FetchCardList";
+import { Register } from "../Components/Widgets/Register/Register";
+import { Login } from "../Components/Widgets/Login/Login";
 
-import { Register } from "../Components/Widgets/Login/Register";
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <Route path="/" element={<OutletWrapper />}>
           <Route index element={<FetchCardList />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Route>
       </Routes>
     </BrowserRouter>

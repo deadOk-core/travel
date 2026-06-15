@@ -1,3 +1,9 @@
+.btn_container {
+  display: flex;
+  // justify-content: space-between;
+  gap: 20px;
+}
+
 .title {
   font-family: var(--poppins);
   font-weight: 600;
@@ -6,15 +12,17 @@
   padding-bottom: 20px;
 }
 
+
 .form {
   display: flex;
   flex-direction: column;
-  //   width: 695px;
+    width: 695px;
 
   &__label {
     display: flex;
     flex-direction: column;
     padding-bottom: 30px;
+    width: 100%;
   }
   &__title {
     font-family: var(--poppins);
@@ -35,7 +43,7 @@
     border: 1px solid var(--gray-color);
     border-radius: 2px;
     padding: 5px 12px;
-
+    
     &_error {
       border: 1px solid var(--red-color);
     }

@@ -5,14 +5,14 @@ import mainTopImg from "../../../Assets/main-top.jpg";
 import logo from "../../../Assets/logo.svg";
 import { Button } from "../Button/Button";
 import { register } from "../../../api/auth/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const HeaderComponent = () => {
-  const handleButton = () => {
-    const data = register("emaasgdasgdil@email.com", "123asdgdfagadfgadsg45")
-    console.log(data)
-  }
+
+  const location = useLocation();
+  location.pathname
+  
   return (
     <>
     <header
@@ -29,12 +29,12 @@ const HeaderComponent = () => {
         </div>
         </Link>
 
-        <Link to={"/register"}>
-        <Button color="invisible" onClick={handleButton}>Войти</Button>
+        <Link to={"/login"}>
+        <Button color="invisible">Войти</Button>
       </Link>
       </nav>
       
-      <h1 className={styles.title}>Там, где мир начинается с путешествий</h1>
+      <h1 className={styles.title}>{ location.pathname ==='/' ? "Там, где мир начинается с путешествий": "Истории ваших путешествий"}</h1>
     </header>
     </>
   );

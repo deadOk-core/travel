@@ -1,14 +1,18 @@
 import React from "react";
 import { memo } from "react";
-import timeLogo from "../../../Assets/time-card.jpg";
 import styles from "./Style.module.scss";
-import type { TGetPosts } from "../../../api/posts/posts";
+import type { TGetPosts } from "../../../api/posts/posts.types";
+
 
 
 
 type TCardData = {
   data: TGetPosts;
 };
+
+const handleInfo = () => {
+  
+}
 
 const CardComponent = ({ data }: TCardData): React.JSX.Element => {
   return (
@@ -24,7 +28,7 @@ const CardComponent = ({ data }: TCardData): React.JSX.Element => {
           <p
             className={styles.text_block_country}
           >{`${data.county}, ${data.city}`}</p>
-          <a className={styles.text_block_link}>Подробнее</a>
+          <a className={styles.text_block_link} onClick={handleInfo}>Подробнее</a>
         </div>
       </div>
     </article>
