@@ -5,13 +5,20 @@
     margin: 30px;
 
     &__item {
-        width: 30px;
         aspect-ratio: 1;
         border-radius: 100%;
         background-color: var(--yellow-color);
         color: transparent;
         transform: translateY(0);
         transition: transform 0.3s ease;
+        
+        &_m {
+            width: 30px;
+        }
+
+        &_s {
+            width: 10px;
+        }
 
         &_up {
             transform: translateY(-15px);

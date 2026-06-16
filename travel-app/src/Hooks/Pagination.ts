@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import type { TGetPosts } from "../api/posts/posts";
+import type { TGetPosts } from "../api/posts/posts.types";
 
 export type TCardDataArray = {
   data: TGetPosts[];

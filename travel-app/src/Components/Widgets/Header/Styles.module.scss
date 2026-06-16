@@ -1,3 +1,52 @@
+.wrapp {
+  position: relative;
+  
+  
+  &__profile {
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    gap: 8px;
+    color: var(--white-color);
+  }
+
+  &__img {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+  }
+
+  &__triangle {
+    transition: transform 0.3s ease;
+
+    &_open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__buttons {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 2px;
+
+    &_button {
+      background-color: inherit;
+      color: var(--dark-black-color);
+      font-family: var(--poppins);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 183%;
+    }
+  }
+}
+
+
 .header {
   position: relative;
   background-size: cover;

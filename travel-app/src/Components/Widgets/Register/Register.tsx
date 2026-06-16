@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TRegister, TRegisterError } from "../../../api/auth/auth.types";
+import { useAuth } from "../../../api/auth/AuthContext";
 
 const formSchema = z
   .object({
@@ -23,6 +24,7 @@ const formSchema = z
 type FormState = z.infer<typeof formSchema>;
 
 const LoginComponent = () => {
+  const { setTokenState } = useAuth();
   const {
     register: registerField, // переименовываем, чтобы не конфликтовало
     handleSubmit,
@@ -35,7 +37,10 @@ const LoginComponent = () => {
   const loginMutation = useMutation(
     {
       mutationFn: (data: FormState) => register(data.email, data.password),
-      onSuccess: (data: TRegister) => localStorage.set("myToken", data.token),
+      onSuccess: (data: TRegister) => {
+        setTokenState(data.token);
+        window.location.href = "/";
+      },
       onError: (error: TRegisterError) => {
         setError("email", {
           type: "server",
@@ -48,7 +53,6 @@ const LoginComponent = () => {
 
   const onSubmit = (data: FormState) => {
     loginMutation.mutate(data);
-    console.log(data);
   };
 
   return (
@@ -65,7 +69,7 @@ const LoginComponent = () => {
             className={`${styles.form__input} ${errors.email && styles.form__input_error}`}
             type="email"
             placeholder="Email"
-            // autoComplete="email"
+            autoComplete="email"
             {...registerField("email")}
           ></input>
           {errors.email && (

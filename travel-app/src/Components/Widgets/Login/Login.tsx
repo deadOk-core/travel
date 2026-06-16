@@ -8,6 +8,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import type { TRegister } from "../../../api/auth/auth.types";
+import { useAuth } from "../../../api/auth/AuthContext";
 
 const formSchema = z.object({
   email: z.email("Некорректный формат email"),
@@ -17,6 +19,7 @@ const formSchema = z.object({
 type FormState = z.infer<typeof formSchema>;
 
 const RegisterComponent = () => {
+  const { setTokenState } = useAuth();
   const {
     register: registerField, // переименовываем, чтобы не конфликтовало
     handleSubmit,
@@ -29,6 +32,10 @@ const RegisterComponent = () => {
   const loginMutation = useMutation(
     {
       mutationFn: (data: FormState) => login(data.email, data.password),
+      onSuccess: (data: TRegister) => {
+        setTokenState(data.token);
+        window.location.href = "/";
+      },
       onError: (error) => {
         setError("form", {
           type: "server",
@@ -100,3 +107,10 @@ const RegisterComponent = () => {
 };
 
 export const Login = memo(RegisterComponent);
+function loginState(token: string, user: any): unknown {
+  throw new Error("Function not implemented.");
+}
+
+function setTokenState(token: string): unknown {
+  throw new Error("Function not implemented.");
+}

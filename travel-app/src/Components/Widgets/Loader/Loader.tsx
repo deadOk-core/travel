@@ -1,7 +1,11 @@
 import { memo, useEffect, useState } from 'react';
 import styles from './Styles.module.scss'
 
-const LoaderComonent = () => {
+type TLoader = {
+    size?: 's' | 'm';
+}
+
+const LoaderComonent = ({size='m'}:TLoader) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const balls = 3;
     const ballsArr =[]
@@ -21,7 +25,7 @@ const LoaderComonent = () => {
         <div>
             <ul className={styles.list}>
                 {ballsArr.map(item => (
-                    <li key={item} className={`${styles.list__item} ${activeIndex === item? styles.list__item_up : ""}`}></li>
+                    <li key={item} className={`${styles.list__item} ${styles[`list__item_${size}`]} ${activeIndex === item? styles.list__item_up : ""}`}></li>
                 ))}
             </ul>
         </div>

@@ -6,36 +6,47 @@ import logo from "../../../Assets/logo.svg";
 import { Button } from "../Button/Button";
 import { register } from "../../../api/auth/auth";
 import { Link, useLocation } from "react-router-dom";
-
+import { getUser } from "../../../api/user/user";
+import { useAuth } from "../../../api/auth/AuthContext";
+import { FetchUser } from "./FetchUser";
 
 const HeaderComponent = () => {
+  const {  isAuth, logoutState } = useAuth();
 
   const location = useLocation();
-  location.pathname
-  
+  location.pathname;
+
   return (
     <>
-    <header
-      className={styles.header}
-      style={{ backgroundImage: `url(${mainTopImg})` }}
-    >
-      <div className={styles.overlay}></div>
+      <header
+        className={styles.header}
+        style={{ backgroundImage: `url(${mainTopImg})` }}
+      >
+        <div className={styles.overlay}></div>
 
-      <nav className={styles.cover}>
-        <Link to={'/'}>
-        <div className={styles.cover_logo}>
-          <img className={styles.cover__img} src={logo} alt="Логотип"></img>
-          <p className={styles.cover__subtitle}>Travel</p>
-        </div>
-        </Link>
+        <nav className={styles.cover}>
+          <Link to={"/"}>
+            <div className={styles.cover_logo}>
+              <img className={styles.cover__img} src={logo} alt="Логотип"></img>
+              <p className={styles.cover__subtitle}>Travel</p>
+            </div>
+          </Link>
 
-        <Link to={"/login"}>
-        <Button color="invisible">Войти</Button>
-      </Link>
-      </nav>
-      
-      <h1 className={styles.title}>{ location.pathname ==='/' ? "Там, где мир начинается с путешествий": "Истории ваших путешествий"}</h1>
-    </header>
+          {isAuth ? <FetchUser/> : (
+            <Link to={"/login"}>
+              <Button color="invisible" >
+                Войти
+              </Button>
+            </Link>
+          )}
+        </nav>
+
+        <h1 className={styles.title}>
+          {location.pathname === "/"
+            ? "Там, где мир начинается с путешествий"
+            : "Истории ваших путешествий"}
+        </h1>
+      </header>
     </>
   );
 };

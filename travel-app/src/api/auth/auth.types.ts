@@ -10,7 +10,10 @@ const RegisterSchemaError = z.object({
     })
 })
 
-
+export const LogoutSchema = z.object({
+    message: z.string()
+})
 
 export type TRegister = z.infer<typeof RegisterSchema>
 export type TRegisterError = z.infer<typeof RegisterSchemaError>
+export type TLogout = z.infer<typeof LogoutSchema>
