@@ -1,20 +1,18 @@
 // Header.tsx
-import { memo, useState } from "react";
+import { memo } from "react";
 import styles from "./Styles.module.scss";
 import mainTopImg from "../../../Assets/main-top.jpg";
 import logo from "../../../Assets/logo.svg";
 import { Button } from "../Button/Button";
-import { register } from "../../../api/auth/auth";
 import { Link, useLocation } from "react-router-dom";
-import { getUser } from "../../../api/user/user";
 import { useAuth } from "../../../api/auth/AuthContext";
 import { FetchUser } from "./FetchUser";
 
 const HeaderComponent = () => {
-  const {  isAuth, logoutState } = useAuth();
+  const {  isAuth } = useAuth();
 
   const location = useLocation();
-  location.pathname;
+  const mainPage = location.pathname === "/"
 
   return (
     <>
@@ -41,8 +39,8 @@ const HeaderComponent = () => {
           )}
         </nav>
 
-        <h1 className={styles.title}>
-          {location.pathname === "/"
+        <h1 className={styles.title} style={!mainPage? {padding: '40px 0'}: undefined}>
+          {mainPage
             ? "Там, где мир начинается с путешествий"
             : "Истории ваших путешествий"}
         </h1>

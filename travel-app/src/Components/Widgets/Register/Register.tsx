@@ -7,8 +7,9 @@ import { Button } from "../Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { TRegister, TRegisterError } from "../../../api/auth/auth.types";
+import type { TRegister } from "../../../api/auth/auth.types";
 import { useAuth } from "../../../api/auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -24,6 +25,7 @@ const formSchema = z
 type FormState = z.infer<typeof formSchema>;
 
 const LoginComponent = () => {
+  const navigate = useNavigate()
   const { setTokenState } = useAuth();
   const {
     register: registerField, // переименовываем, чтобы не конфликтовало
@@ -39,9 +41,9 @@ const LoginComponent = () => {
       mutationFn: (data: FormState) => register(data.email, data.password),
       onSuccess: (data: TRegister) => {
         setTokenState(data.token);
-        window.location.href = "/";
+        navigate('/profile')
       },
-      onError: (error: TRegisterError) => {
+      onError: () => {
         setError("email", {
           type: "server",
           message: "Аккаунт с данным email уже существует",

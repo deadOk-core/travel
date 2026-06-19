@@ -1,0 +1,94 @@
+.editProfile {
+    max-width: 1170px;
+    display: grid;
+    grid-template-columns: 240px minmax(840px, 1fr);
+    gap: 30px;
+
+    &__img {
+        object-fit: fill;
+        width: 240px;
+        aspect-ratio: 1;
+        border-radius: 10px;
+    }
+
+    .form {
+  display: flex;
+  flex-direction: column;
+  //   width: 695px;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+  &__title {
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--light-black-color);
+    line-height: 22px;
+    padding-bottom: 8px;
+
+    &_required {
+        &::before {
+      content: "*";
+      padding-right: 4px;
+      color: var(--red-color);
+    }
+    }
+  }
+
+  &__input {
+    border: 1px solid var(--gray-color);
+    border-radius: 2px;
+    padding: 5px 12px;
+
+    &_error {
+      border: 1px solid var(--red-color);
+    }
+
+    &::placeholder {
+        color: var(--gray-color);
+        font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    }
+
+    &_bio {
+        resize: vertical;
+        max-height: 137px;
+    }
+  }
+
+  &__switchPassword {
+    color: var(--light-black-color);
+        font-family: var(--poppins);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 8px;
+  }
+
+  &__passwords {
+    display: flex;
+    // justify-content: space-between;
+    gap: 20px;
+
+    label {
+        width: 100%;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    // gap: 348px;
+  }
+
+  &__error {
+    padding-top: 5px;
+    color: red;
+  }
+}
+}

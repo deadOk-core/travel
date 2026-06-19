@@ -7,7 +7,7 @@ import { Button } from "../Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { TRegister } from "../../../api/auth/auth.types";
 import { useAuth } from "../../../api/auth/AuthContext";
 
@@ -19,6 +19,7 @@ const formSchema = z.object({
 type FormState = z.infer<typeof formSchema>;
 
 const RegisterComponent = () => {
+  const navigate = useNavigate()
   const { setTokenState } = useAuth();
   const {
     register: registerField, // переименовываем, чтобы не конфликтовало
@@ -34,9 +35,9 @@ const RegisterComponent = () => {
       mutationFn: (data: FormState) => login(data.email, data.password),
       onSuccess: (data: TRegister) => {
         setTokenState(data.token);
-        window.location.href = "/";
+        navigate('/profile')
       },
-      onError: (error) => {
+      onError: () => {
         setError("form", {
           type: "server",
           message: "Неправильный логин или пароль",
@@ -107,10 +108,3 @@ const RegisterComponent = () => {
 };
 
 export const Login = memo(RegisterComponent);
-function loginState(token: string, user: any): unknown {
-  throw new Error("Function not implemented.");
-}
-
-function setTokenState(token: string): unknown {
-  throw new Error("Function not implemented.");
-}

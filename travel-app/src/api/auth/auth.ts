@@ -12,7 +12,7 @@ export const register = async (
 ): Promise<TRegister> => {
   const response = await fetch(`${BASE_URL}/api/register`, {
     headers: {
-      // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      
       "Content-Type": "application/json",
     },
     method: "POST",
@@ -31,13 +31,17 @@ export const login = async (
 ): Promise<TRegister > => {
   const response = await fetch(`${BASE_URL}/api/login`, {
     headers: {
-      // 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      
       "Content-Type": "application/json",
     },
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
   const data = await response.json();
+  if (!response.ok) {
+    // Сервер вернул ошибку
+    throw new Error(data.message || data.error || `Ошибка ${response.status}`);
+  }
   console.log(data)
   return RegisterSchema.parse(data);
 };

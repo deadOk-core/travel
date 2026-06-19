@@ -8,6 +8,7 @@ type TButton = {
   size?: "s" | "m";
   centered?: boolean;
   type?: "button" | "submit"
+  disabled?: boolean
 };
 
 const ButtonComponent = ({
@@ -16,13 +17,15 @@ const ButtonComponent = ({
   onClick,
   size = "m",
   centered,
-  type = "button"
+  type = "button",
+  disabled,
 }: TButton): JSX.Element => {
   return (
     <button
       className={`${styles.button} ${styles[`button_${color}`]} ${styles[`button_${size}`]} ${centered && styles.button_centered}`}
       onClick={onClick}
       type={type}
+      disabled={disabled}
     >
       {children}
     </button>

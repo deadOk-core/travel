@@ -1,7 +1,6 @@
 .wrapp {
   position: relative;
   
-  
   &__profile {
     align-items: center;
     background-color: transparent;
@@ -42,6 +41,10 @@
       font-weight: 400;
       font-size: 12px;
       line-height: 183%;
+
+      &:hover {
+        background-color: var(--gray-color);
+      }
     }
   }
 }

@@ -9,6 +9,8 @@ import { Login } from "../Components/Widgets/Login/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../api/queryClient";
 import { AuthProvider } from "../api/auth/AuthContext";
+import { Profile } from "../Components/Widgets/Profile/Profile";
+import { EditProfile } from "../Components/Widgets/EditProfile/EditProfile";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
               <Route index element={<FetchCardList />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/edit" element={<EditProfile />} />
             </Route>
           </Routes>
         </BrowserRouter>

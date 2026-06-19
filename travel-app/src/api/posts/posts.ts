@@ -13,5 +13,6 @@ export const getPosts = async (): Promise<TGetPosts[]> => {
     }
     const data = await response.json();
     const validateData = PostsArrayShema.parse(data)
+    console.log(data)
     return validateData
 };

@@ -1,15 +1,16 @@
 import { memo, useEffect, useState } from "react";
-import { getPosts } from "../../../api/posts/posts";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
 import { Loader } from "../Loader/Loader";
 import { getUser } from "../../../api/user/user";
-import { login, logout } from "../../../api/auth/auth";
+import {  logout } from "../../../api/auth/auth";
 import { useAuth } from "../../../api/auth/AuthContext";
 import profileTriangle from "/src/Assets/profile-triangle.svg";
+import { Link, useNavigate } from "react-router-dom";
 
 const FetchUserComponent = () => {
+  const navigate = useNavigate();
   const { setUserState, logoutState } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,13 +26,15 @@ const FetchUserComponent = () => {
   const handleLogout = () => {
     userLogout.refetch()
     logoutState()
+    navigate('/')
     console.log("Вы вышли из аккаунта")
   }
 
   const userInfo = useQuery(
     {
       queryFn: () => getUser(),
-      queryKey: ["user"],
+      queryKey: ["user", localStorage.getItem('token')],
+      refetchOnWindowFocus: false, // При возврате на вкладку не обновлять
     },
     queryClient,
   );
@@ -60,9 +63,11 @@ const FetchUserComponent = () => {
 
           {isOpen && (
         <div className={styles.wrapp__buttons}>
-          <button className={styles.wrapp__buttons_button} onClick={() => { /* переход в профиль */ }}>
+          <Link to={'/profile'}>
+          <button className={styles.wrapp__buttons_button}>
             Профиль
           </button>
+          </Link>
           <button className={styles.wrapp__buttons_button} onClick={handleLogout}>
             Выйти
           </button>
