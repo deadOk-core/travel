@@ -6,7 +6,7 @@ import { Header } from "../Components/Widgets/Header/Header";
 import { FetchCardList } from "../Components/Widgets/CardList/FetchCardList";
 import { Register } from "../Components/Widgets/Register/Register";
 import { Login } from "../Components/Widgets/Login/Login";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../api/queryClient";
 import { AuthProvider } from "../api/auth/AuthContext";
 import { Profile } from "../Components/Widgets/Profile/Profile";
