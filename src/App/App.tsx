@@ -1,7 +1,7 @@
 import "../Styles/index.scss";
 import "../Styles/mixins.scss";
 import "./Styles.scss";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import {  Routes, Route, Outlet, HashRouter } from "react-router-dom";
 import { Header } from "../Components/Widgets/Header/Header";
 import { FetchCardList } from "../Components/Widgets/CardList/FetchCardList";
 import { Register } from "../Components/Widgets/Register/Register";
@@ -16,7 +16,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<OutletWrapper />}>
               <Route index element={<FetchCardList />} />
@@ -26,7 +26,7 @@ function App() {
               <Route path="/profile/edit" element={<EditProfile />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </QueryClientProvider>
   );
