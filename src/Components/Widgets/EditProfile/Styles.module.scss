@@ -11,6 +11,36 @@
         border-radius: 10px;
     }
 
+    &__selectPhoto {
+      display: none;
+    }
+
+    &__changePhoto {
+      display: block;
+      font-family: var(--poppins);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--yellow-color);
+      text-decoration: underline solid 1px var(--yellow-color);
+      text-underline-offset: 2px;
+      text-decoration-skip-ink: none;
+      text-align: center;
+      padding-top: 15px;
+      
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-right: 6px;
+        vertical-align: middle;
+        background-image: url('/src/Assets/photo_icon.svg'); 
+      }
+    }
+
     .form {
   display: flex;
   flex-direction: column;
@@ -36,6 +66,15 @@
       color: var(--red-color);
     }
     }
+  }
+
+  &__counter {
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+    color: var(--dark-gray-color);
   }
 
   &__input {

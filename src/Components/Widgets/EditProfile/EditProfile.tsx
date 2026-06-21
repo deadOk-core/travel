@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "./Styles.module.scss";
 import { useAuth } from "../../../api/auth/AuthContext";
 import { Link } from "react-router-dom";
@@ -13,6 +13,10 @@ import { EditProfileSchema, type FormStateProfile } from "./schema";
 
 const EditProfileComponent = () => {
   const { user } = useAuth();
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [previewPhoto, setPreviewPhoto] = useState<string>("");
+  
+  const maxBioLength = 600;
 
   //Изменение данных профиля
   const {
@@ -20,6 +24,7 @@ const EditProfileComponent = () => {
     handleSubmit,
     formState: { errors, dirtyFields },
     reset,
+    watch,
   } = useForm<FormStateProfile>({
     resolver: zodResolver(EditProfileSchema),
     defaultValues: {
@@ -32,18 +37,25 @@ const EditProfileComponent = () => {
     },
   });
 
-  const hasChanges = Object.keys(dirtyFields).length > 0;
+  const hasChanges = Object.keys(dirtyFields).length > 0 || photoFile !== null;
+  const bioValue = watch("bio", "");
+  const bioLength = bioValue ? bioValue.length : 0;
 
-  const editProfileMutation = useMutation(
-    {
-      mutationFn: (data: FormStateProfile) => editProfile(data),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["user"] });
-        console.log("Профиль обновлён!");
-      },
+  const editProfileMutation = useMutation({
+    mutationFn: ({
+      data,
+      photoFile,
+    }: {
+      data: FormStateProfile;
+      photoFile: File | null;
+    }) => editProfile(data, photoFile), // передаём оба параметра
+    onSuccess: (response) => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+      setPhotoFile(null);
+      setPreviewPhoto("");
+      console.log("Профиль обновлён!", response);
     },
-    queryClient,
-  );
+  });
 
   const editPasswordMutation = useMutation(
     {
@@ -53,7 +65,7 @@ const EditProfileComponent = () => {
   );
 
   const onSubmit = (data: FormStateProfile) => {
-    editProfileMutation.mutate(data);
+    editProfileMutation.mutate({ data, photoFile });
     console.log(data);
 
     const newPassword = (
@@ -84,6 +96,12 @@ const EditProfileComponent = () => {
     }
   }, [user]);
 
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPhotoFile(file);
+  };
+
   return (
     <form
       className={styles.editProfile}
@@ -94,11 +112,15 @@ const EditProfileComponent = () => {
         <img
           className={styles.editProfile__img}
           src={
-            user?.photo ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s"
+            user?.photo
+              ? `https://travelblog.skillbox.cc${user.photo}`
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s"
           }
         ></img>
-        <input type="file" {...registerProfile("photo")} />
+        <label>
+          <input className={styles.editProfile__selectPhoto} type="file" accept="image/*" onChange={handlePhotoChange} />
+          <a className={styles.editProfile__changePhoto}>Изменить фото</a>
+        </label>
       </div>
 
       <div className={styles.form}>
@@ -146,9 +168,13 @@ const EditProfileComponent = () => {
             className={`${styles.form__input} ${styles.form__input_bio}`}
             rows={4}
             placeholder="О себе"
+            maxLength={maxBioLength}
             {...registerProfile("bio")}
             // autoComplete="current-password"
           />
+          <span
+            className={styles.form__counter}
+          >{`${bioLength} / ${maxBioLength}`}</span>
           {errors.bio && (
             <span className={styles.form__error}>{errors.bio.message}</span>
           )}

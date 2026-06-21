@@ -11,9 +11,10 @@ const ProfileComponent = () => {
       <div className={styles.profile__avatar}>
         <img
           className={styles.profile__img}
-          src={
-            user?.photo ||
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s"
+          src=
+             { (user?.photo  
+      ? `https://travelblog.skillbox.cc${user.photo}` 
+      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s")
           }
         ></img>
       </div>

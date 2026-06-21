@@ -16,7 +16,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter basename="/travel-production">
+        {/* Чтобы запустить версию в проде надо добавить в BrowserRouter basename="/travel-production" */}
+        <BrowserRouter >
           <Routes>
             <Route path="/" element={<OutletWrapper />}>
               <Route index element={<FetchCardList />} />

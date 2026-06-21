@@ -1,5 +1,5 @@
 import { BASE_URL } from '../client';
-import { type TEditPassword, type TEditProfile,  type TUser } from './user.types';
+import { EditUserProfileSchema, type TEditPassword, type TEditProfile,  type TUser } from './user.types';
 
 // Получение пользователя
 
@@ -21,27 +21,35 @@ export const getUser = async (): Promise<TUser> => {
 
 
 
-export const editProfile = async (data: TEditProfile) => {
-    const response = await fetch(`${BASE_URL}/api/user`, {
+// api/user/user.api.ts
+export const editProfile = async (data: TEditProfile, photoFile?: File | null) => {
+  const token = localStorage.getItem('token');
+  const formData = new FormData();
+  
+  // Добавляем текстовые поля (только если не пустые)
+  if (data.full_name) formData.append('full_name', data.full_name);
+  if (data.city) formData.append('city', data.city);
+  if (data.bio) formData.append('bio', data.bio);
+  // Добавляем фото как ФАЙЛ (не строка)
+  if (photoFile) {
+    formData.append('photo', photoFile); // сам файл
+  }
+  
+  const response = await fetch(`${BASE_URL}/api/user`, {
+    method: 'POST',
     headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      "Content-Type": "application/json",
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
     },
-    method: "POST",
-    body: JSON.stringify({
-      full_name: data.full_name,
-      city: data.city,
-      bio: data.bio,
-      photo: data.photo,
-
-    })
+    body: formData,
   });
-    if (!response.ok) {
-        throw new Error(`HTTP getPosts ${response.status}`);
-    }
-    const datsa = await response.json();
-    console.log(data)
-    return datsa
+  
+  if (!response.ok) {
+    throw new Error(`Ошибка ${response.status}`);
+  }
+  
+  const responseData = await response.json();
+  return responseData ;
 };
 
 

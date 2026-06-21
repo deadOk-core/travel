@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
@@ -8,6 +8,7 @@ import {  logout } from "../../../api/auth/auth";
 import { useAuth } from "../../../api/auth/AuthContext";
 import profileTriangle from "/src/Assets/profile-triangle.svg";
 import { Link, useNavigate } from "react-router-dom";
+import { useClickAway } from 'react-use';
 
 const FetchUserComponent = () => {
   const navigate = useNavigate();
@@ -45,14 +46,20 @@ const FetchUserComponent = () => {
     }
   }, [userInfo.data]);
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useClickAway(dropdownRef, () => {
+    if (isOpen) setIsOpen(false);
+  });
+
   switch (userInfo.status) {
     case "pending":
       return <Loader size="s"/>;
     case "success":
       return (
-        <div className={styles.wrapp}>
+        <div className={styles.wrapp} ref={dropdownRef}>
           <button className={styles.wrapp__profile} onClick={()=>setIsOpen(!isOpen)}>
-            <img className={styles.wrapp__img} src={userInfo.data.photo || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s'}></img>
+            <img className={styles.wrapp__img} src={ `https://travelblog.skillbox.cc${userInfo.data.photo}` || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s'}></img>
             <p>
               {userInfo.data.full_name === ""
                 ? `user${userInfo.data.id}`
