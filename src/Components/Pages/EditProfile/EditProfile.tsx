@@ -14,7 +14,6 @@ import { EditProfileSchema, type FormStateProfile } from "./schema";
 const EditProfileComponent = () => {
   const { user } = useAuth();
   const [photoFile, setPhotoFile] = useState<File | null>(null);
-  const [previewPhoto, setPreviewPhoto] = useState<string>("");
   
   const maxBioLength = 600;
 
@@ -52,7 +51,6 @@ const EditProfileComponent = () => {
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
       setPhotoFile(null);
-      setPreviewPhoto("");
       console.log("Профиль обновлён!", response);
     },
   });

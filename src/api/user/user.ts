@@ -1,5 +1,5 @@
 import { BASE_URL } from '../client';
-import { EditUserProfileSchema, type TEditPassword, type TEditProfile,  type TUser } from './user.types';
+import { type TEditPassword, type TEditProfile,  type TUser } from './user.types';
 
 // Получение пользователя
 

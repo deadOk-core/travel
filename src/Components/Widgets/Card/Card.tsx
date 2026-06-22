@@ -2,24 +2,13 @@ import React from "react";
 import { memo } from "react";
 import styles from "./Style.module.scss";
 import type { TGetPosts } from "../../../api/posts/posts.types";
-import { useQuery } from "@tanstack/react-query";
-import { getPostByID } from "../../../api/posts/posts";
-import { queryClient } from "../../../api/queryClient";
 import { useNavigate } from "react-router-dom";
-
-
-
 
 type TCardData = {
   data: TGetPosts;
 };
 
-
-
-
 const CardComponent = ({ data }: TCardData): React.JSX.Element => {
-   
-
   const navigate = useNavigate();
 
   const handlePost = () => {

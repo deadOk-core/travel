@@ -7,10 +7,6 @@ import { Paginate } from "../Pagination/Paginate";
 import { Button } from "../Button/Button";
 import type { TGetPosts } from "../../../api/posts/posts.types";
 import { useAuth } from "../../../api/auth/AuthContext";
-import { getPostByID } from "../../../api/posts/posts";
-import { useQuery } from "@tanstack/react-query";
-import { queryClient } from "../../../api/queryClient";
-
 
 type TCards = {
   cards: TGetPosts[];
@@ -19,7 +15,7 @@ type TCards = {
 const CardListComponent = ({cards}: TCards) => {
   const {isAuth} = useAuth()
   const dataCards: TCardDataArray = {
-    data: cards, // Поле должно называться data, а не cards
+    data: cards,
   };
 
   const { currentCards, pageCount, setCurrentPage, currentPage } = usePagination(dataCards);
