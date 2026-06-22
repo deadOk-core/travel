@@ -3,7 +3,7 @@ import { register } from "../../../api/auth/auth";
 import { memo } from "react";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
-import { Button } from "../Button/Button";
+import { Button } from "../../Widgets/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

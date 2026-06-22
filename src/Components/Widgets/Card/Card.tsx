@@ -2,6 +2,10 @@ import React from "react";
 import { memo } from "react";
 import styles from "./Style.module.scss";
 import type { TGetPosts } from "../../../api/posts/posts.types";
+import { useQuery } from "@tanstack/react-query";
+import { getPostByID } from "../../../api/posts/posts";
+import { queryClient } from "../../../api/queryClient";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -10,11 +14,18 @@ type TCardData = {
   data: TGetPosts;
 };
 
-const handleInfo = () => {
-  
-}
+
+
 
 const CardComponent = ({ data }: TCardData): React.JSX.Element => {
+   
+
+  const navigate = useNavigate();
+
+  const handlePost = () => {
+    navigate(`/post/${data.id}`);
+  };
+
   return (
     <article className={styles.card}>
       <img className={styles.card_img} src={`https://travelblog.skillbox.cc${data.photo}`}></img>
@@ -28,7 +39,7 @@ const CardComponent = ({ data }: TCardData): React.JSX.Element => {
           <p
             className={styles.text_block_country}
           >{`${data.county}, ${data.city}`}</p>
-          <a className={styles.text_block_link} onClick={handleInfo}>Подробнее</a>
+          <a className={styles.text_block_link} onClick={handlePost}>Подробнее</a>
         </div>
       </div>
     </article>

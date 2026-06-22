@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import styles from "./Styles.module.scss";
 import { useAuth } from "../../../api/auth/AuthContext";
 import { Link } from "react-router-dom";
-import { Button } from "../Button/Button";
+import { Button } from "../../Widgets/Button/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";

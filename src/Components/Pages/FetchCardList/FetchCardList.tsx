@@ -2,8 +2,8 @@ import { memo } from "react";
 import { getPosts,  } from "../../../api/posts/posts";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
-import { CardList } from "./CardList";
-import { Loader } from "../Loader/Loader";
+import { CardList } from "../../Widgets/CardList/CardList";
+import { Loader } from "../../Widgets/Loader/Loader";
 
 const FetchCardListComponent = () => {
     

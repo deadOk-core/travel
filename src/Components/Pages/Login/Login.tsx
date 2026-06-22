@@ -3,13 +3,14 @@ import { login } from "../../../api/auth/auth";
 import { memo } from "react";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Style.module.scss";
-import { Button } from "../Button/Button";
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import type { TRegister } from "../../../api/auth/auth.types";
 import { useAuth } from "../../../api/auth/AuthContext";
+import { Button } from "../../Widgets/Button/Button";
 
 const formSchema = z.object({
   email: z.email("Некорректный формат email"),
