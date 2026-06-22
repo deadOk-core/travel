@@ -3,10 +3,10 @@ import { memo } from "react";
 import styles from "./Styles.module.scss";
 import mainTopImg from "../../../Assets/main-top.jpg";
 import logo from "../../../Assets/logo.svg";
-import { Button } from "../Button/Button";
+import { Button } from "../../Widgets/Button/Button";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../api/auth/AuthContext";
-import { FetchUser } from "./FetchUser";
+import { FetchUser } from "../../Widgets/FetchUser/FetchUser";
 
 const HeaderComponent = () => {
   const {  isAuth } = useAuth();
