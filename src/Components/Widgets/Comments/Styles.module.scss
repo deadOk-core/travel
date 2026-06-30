@@ -1,0 +1,37 @@
+.comm__list {
+  margin-top: 50px;
+}
+
+.comm {
+  &__item {
+    padding-bottom: 30px;
+  }
+
+  &__item:last-child {
+    padding-bottom: 0;
+  }
+
+  &__name {
+    font-family: var(--poppins);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--black);
+  }
+
+  &__date {
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--light-gray-color);
+  }
+
+  &__text {
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--black);
+  }
+}
