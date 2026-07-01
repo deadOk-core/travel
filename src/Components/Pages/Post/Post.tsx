@@ -5,8 +5,8 @@ import { getPostByID } from "../../../api/posts/posts";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
 import { Comments } from "../../Widgets/Comments/Comments";
-import { Button } from "../../Widgets/Button/Button";
-import { Loader } from "../../Widgets/Loader/Loader";
+import { Button } from "../../UI/Button/Button";
+import { Loader } from "../../UI/Loader/Loader";
 
 const PostComponent = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,7 +38,7 @@ const PostComponent = () => {
           .split(". ")
           .filter((sentence) => sentence.trim())
           .map((sent, id) => {
-            const normalSentence = sent.trim().endsWith(".")
+            const normalSentence = sent.trim().endsWith(". ")
               ? sent.trim()
               : sent.trim() + ".";
             return (
@@ -54,7 +54,9 @@ const PostComponent = () => {
           <Link to={"/"}>
             <Button color="transparent">← Назад</Button>
           </Link>
+          <Link to={`/post/${postData.id}/comment`}>
           <Button>Ваше впечатление об этом месте</Button>
+          </Link>
         </div>
       </div>
     </section>

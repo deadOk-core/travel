@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 695px;
+
+  &__title {
+    font-family: var(--poppins);
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--black-color);
+    padding-bottom: 20px;
+  }
+}

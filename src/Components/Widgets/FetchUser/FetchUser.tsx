@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
-import { Loader } from "../Loader/Loader";
+import { Loader } from "../../UI/Loader/Loader";
 import { getUser } from "../../../api/user/user";
 import {  logout } from "../../../api/auth/auth";
 import { useAuth } from "../../../api/auth/AuthContext";

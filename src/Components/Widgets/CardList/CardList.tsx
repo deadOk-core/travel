@@ -3,8 +3,8 @@ import { memo } from "react";
 import { Card } from "../Card/Card";
 import styles from "./Style.module.scss";
 import { usePagination, type TCardDataArray } from "../../../Hooks/Pagination";
-import { Paginate } from "../Pagination/Paginate";
-import { Button } from "../Button/Button";
+import { Paginate } from "../../UI/Pagination/Paginate";
+import { Button } from "../../UI/Button/Button";
 import type { TGetPosts } from "../../../api/posts/posts.types";
 import { useAuth } from "../../../api/auth/AuthContext";
 

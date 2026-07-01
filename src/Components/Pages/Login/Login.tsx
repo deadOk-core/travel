@@ -10,7 +10,8 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import type { TRegister } from "../../../api/auth/auth.types";
 import { useAuth } from "../../../api/auth/AuthContext";
-import { Button } from "../../Widgets/Button/Button";
+import { Button } from "../../UI/Button/Button";
+import { Form } from "../../UI/Form/Form";
 
 const formSchema = z.object({
   email: z.email("Некорректный формат email"),
@@ -61,11 +62,7 @@ const RegisterComponent = () => {
           {errors.form.message}
         </span>
       )}
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <label className={styles.form__label}>
           <span className={styles.form__title}>Логин</span>
           <input
@@ -103,7 +100,7 @@ const RegisterComponent = () => {
             Войти
           </Button>
         </div>
-      </form>
+      </Form>
     </>
   );
 };

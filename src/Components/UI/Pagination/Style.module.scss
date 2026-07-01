@@ -1,0 +1,23 @@
+.pag_list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 60px;
+
+  &__button {
+    width: 30px;
+    aspect-ratio: 1;
+    background-color: var(--yellow-color);
+    padding: 10px;
+    border-radius: 10px;
+    color: var(--white-color);
+
+    &:hover {
+      background-color: var(--yellow-dark-color);
+    }
+  }
+
+  &__active {
+    background-color: var(--yellow-dark-color);
+  }
+}

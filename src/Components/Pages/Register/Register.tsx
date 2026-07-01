@@ -3,7 +3,7 @@ import { register } from "../../../api/auth/auth";
 import { memo } from "react";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
-import { Button } from "../../Widgets/Button/Button";
+import { Button } from "../../UI/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -66,7 +66,7 @@ const LoginComponent = () => {
         noValidate
       >
         <label className={styles.form__label}>
-          <span className={styles.form__title}>Логин</span>
+          <span className={styles.form__title}>Email</span>
           <input
             className={`${styles.form__input} ${errors.email && styles.form__input_error}`}
             type="email"
@@ -85,7 +85,7 @@ const LoginComponent = () => {
             <input
               className={`${styles.form__input} ${errors.password && styles.form__input_error}`}
               type="password"
-              placeholder="Пароль"
+              placeholder="*************"
               autoComplete="new-password"
               {...registerField("password")}
             />
@@ -101,7 +101,7 @@ const LoginComponent = () => {
             <input
               className={`${styles.form__input} ${errors.confirmPassword && styles.form__input_error}`}
               type="password"
-              placeholder="Пароль"
+              placeholder="*************"
               autoComplete="new-password"
               {...registerField("confirmPassword")}
             />
