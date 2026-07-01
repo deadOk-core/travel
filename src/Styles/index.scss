@@ -6,7 +6,6 @@
   margin: 0;
   border: 0;
   // transition: background-color 0.3s ease-out;
-
 }
 
 *,
@@ -53,7 +52,8 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   letter-spacing: 0;
-  
+  background-color: rgba(250, 250, 250, 0.862);
+  scrollbar-width: none;
 }
 
 input,
@@ -74,8 +74,6 @@ button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
-
-
 
 a,
 a:visited {
@@ -127,7 +125,6 @@ blockquote {
 //   color: var(--blue-color);
 // }
 
-
 // p {
 //   @include text_body();
 // }
@@ -150,9 +147,8 @@ input[type="time"] {
 }
 
 .error {
-  color: red
+  color: red;
 }
-
 
 .popup {
   padding: 32px;
@@ -163,7 +159,7 @@ input[type="time"] {
   & form {
     display: flex;
     flex-direction: column;
-    row-gap: 16px
+    row-gap: 16px;
   }
 
   &__buttons {

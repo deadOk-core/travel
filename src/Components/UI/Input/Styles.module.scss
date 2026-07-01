@@ -1,0 +1,25 @@
+.input {
+  border: 1px solid var(--gray-color);
+  border-radius: 2px;
+  padding: 5px 12px;
+
+  &::placeholder {
+    color: var(--gray-color);
+    font-family: var(--poppins);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &_error {
+    border: 1px solid var(--red-color);
+  }
+
+  &__required {
+    &::before {
+      content: "*";
+      padding-right: 4px;
+      color: var(--red-color);
+    }
+  }
+}

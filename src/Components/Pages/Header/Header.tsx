@@ -1,9 +1,8 @@
 // Header.tsx
 import { memo } from "react";
 import styles from "./Styles.module.scss";
-import mainTopImg from "../../../Assets/main-top.jpg";
 import logo from "../../../Assets/logo.svg";
-import { Button } from "../../Widgets/Button/Button";
+import { Button } from "../../UI/Button/Button";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../../api/auth/AuthContext";
 import { FetchUser } from "../../Widgets/FetchUser/FetchUser";
@@ -18,7 +17,6 @@ const HeaderComponent = () => {
     <>
       <header
         className={styles.header}
-        style={{ backgroundImage: `url(${mainTopImg})` }}
       >
         <div className={styles.overlay}></div>
 

@@ -3,7 +3,7 @@ import { getPosts,  } from "../../../api/posts/posts";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import { CardList } from "../../Widgets/CardList/CardList";
-import { Loader } from "../../Widgets/Loader/Loader";
+import { Loader } from "../../UI/Loader/Loader";
 
 const FetchCardListComponent = () => {
     
