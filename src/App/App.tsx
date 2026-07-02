@@ -16,7 +16,7 @@ function App() {
   return (
       <AuthProvider>
         {/* Чтобы запустить версию в проде, надо добавить в BrowserRouter basename="/travel-production" */}
-        <BrowserRouter basename="/travel-production">
+        <BrowserRouter >
           <Routes>
             <Route path="/" element={<OutletWrapper />}>
               <Route index element={<FetchCardList />} />

@@ -51,8 +51,8 @@
 
   &__buttons {
     display: flex;
-    // justify-content: space-between;
-    gap: 348px;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__error {
