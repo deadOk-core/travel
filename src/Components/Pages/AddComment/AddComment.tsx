@@ -15,7 +15,7 @@ import type { TAddOneCommentShema } from "../../../api/posts/posts.types";
 
 const AddCommentComponent = () => {
   const { id } = useParams<{ id: string }>();
-  const { user } = useAuth();
+  const { user, isAuth } = useAuth();
   const navigate = useNavigate();
 
   if (!id) {
@@ -31,6 +31,12 @@ const AddCommentComponent = () => {
         console.log(data);
         navigate(`/post/${id}`);
       },
+      onError: () => {
+        setError("form", {
+          type: "server",
+          message: "Чтобы добавить комментарий необходимо зарегистрироваться",
+        })
+      }
     },
     queryClient,
   );
@@ -40,6 +46,7 @@ const AddCommentComponent = () => {
     register,
     formState: { errors },
     watch,
+    setError
   } = useForm<TCommentFormSchema>({ resolver: zodResolver(CommentFormSchema) });
 
   const maxCommentLength = 2000;
@@ -54,6 +61,11 @@ const AddCommentComponent = () => {
   return (
     <CoverBackground>
       <h2 className={styles.title}>Добавление отзыва</h2>
+      {errors.form && (
+        <span className={styles.form__error} style={{ padding: "10px 0" }}>
+          {errors.form.message}
+        </span>
+      )}
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label className={styles.form__label}>
           <span className={styles.form__title}>Ваше имя</span>

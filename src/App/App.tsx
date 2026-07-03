@@ -11,6 +11,7 @@ import { EditProfile } from "../Components/Pages/EditProfile/EditProfile";
 import { Post } from "../Components/Pages/Post/Post";
 import { Login } from "../Components/Pages/Login/Login";
 import { AddComment } from "../Components/Pages/AddComment/AddComment";
+import { AddNewPost } from "../Components/Pages/AddNewPost/AddNewPost";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/profile/edit" element={<EditProfile />} />
               <Route path="/post/:id" element={<Post />} />
               <Route path="/post/:id/comment" element={<AddComment />} />
+              <Route path="/newPost" element={<AddNewPost />} />
             </Route>
           </Routes>
         </BrowserRouter>

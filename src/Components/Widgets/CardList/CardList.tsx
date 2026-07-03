@@ -7,6 +7,7 @@ import { Paginate } from "../../UI/Pagination/Paginate";
 import { Button } from "../../UI/Button/Button";
 import type { TGetPosts } from "../../../api/posts/posts.types";
 import { useAuth } from "../../../api/auth/AuthContext";
+import { Link } from "react-router-dom";
 
 type TCards = {
   cards: TGetPosts[];
@@ -32,7 +33,9 @@ const CardListComponent = ({cards}: TCards) => {
 
       <Paginate pageCount={pageCount} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
       
+      <Link to={'/newPost'}>
       <Button centered disabled={!isAuth}>Добавить мое путешествие</Button>
+      </Link>
       {!isAuth && <span className="error">Чтобы добавить пост необходимо зарегистрироваться</span>}
     </>
   );

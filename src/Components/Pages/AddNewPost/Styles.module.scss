@@ -1,0 +1,22 @@
+.title {
+  font-family: var(--poppins);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 100%;
+  padding-bottom: 20px;
+}
+
+.post {
+    
+  &__cover {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
