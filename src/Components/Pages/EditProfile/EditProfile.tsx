@@ -15,7 +15,7 @@ const EditProfileComponent = () => {
   const { user } = useAuth();
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   
-  const maxBioLength = 600;
+  
 
   //Изменение данных профиля
   const {
@@ -37,6 +37,8 @@ const EditProfileComponent = () => {
   });
 
   const hasChanges = Object.keys(dirtyFields).length > 0 || photoFile !== null;
+
+  const maxBioLength = 600;
   const bioValue = watch("bio", "");
   const bioLength = bioValue ? bioValue.length : 0;
 
@@ -53,7 +55,7 @@ const EditProfileComponent = () => {
       setPhotoFile(null);
       console.log("Профиль обновлён!", response);
     },
-  });
+  }, queryClient);
 
   const editPasswordMutation = useMutation(
     {
