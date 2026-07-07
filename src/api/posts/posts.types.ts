@@ -66,3 +66,35 @@ export const AddOneCommentShema =
 
 
 export type TAddOneCommentShema = z.infer<typeof AddOneCommentShema>;
+
+
+//Создать новый пост
+
+export const CreatePostSchema = 
+  z.object({
+    title: z.string(),
+    description: z.string(),
+    country: z.string(),
+    city: z.string(),
+    photo: z.string().optional(),
+  })
+
+export type TCreatePostSchema = z.infer<typeof CreatePostSchema>;
+
+export const CreatePostResponseSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  description: z.string(),
+  country: z.string(),
+  city: z.string(),
+  photo: z.string(),
+  comments: z.array(z.unknown()).optional().default([]),
+  userInfo: z.object({
+    full_name: z.string(),
+    city: z.string(),
+    country: z.string().optional().default(''),
+    bio: z.string(),
+  }),
+});
+
+export type TCreatePostResponse = z.infer<typeof CreatePostResponseSchema>;

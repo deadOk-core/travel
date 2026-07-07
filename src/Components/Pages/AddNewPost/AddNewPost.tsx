@@ -7,11 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../../UI/Form/Form";
 import { Input } from "../../UI/Input/Input";
 import { Button } from "../../UI/Button/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../../../api/queryClient";
+import { createPost } from "../../../api/posts/posts";
+import type { TCreatePostSchema } from "../../../api/posts/posts.types";
 
 const AddNewPostComponent = () => {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
-
+  const navigate = useNavigate()
+  
   const {
     register,
     handleSubmit,
@@ -19,20 +24,69 @@ const AddNewPostComponent = () => {
     formState: { errors },
   } = useForm<TAddNewPostFormSchema>({
     resolver: zodResolver(AddNewPostFormSchema),
+    defaultValues: {
+        title: "",
+        description: "",
+        country: "",
+        city: "",
+        photo: "",
+    },
   });
+  
+  // const hasChanges = Object.keys(dirtyFields).length > 0 || photoFile !== null;
+  const newPost = useMutation(
+    {
+      mutationFn: ({
+        data,
+        photoFile,
+      }: {
+        data: TCreatePostSchema;
+        photoFile: File | null;
+      }) => createPost(data, photoFile),
+      onSuccess:(data)=> {
+        setPhotoFile(null)
+        navigate(`/post/${data.id}`)
+      },
+      onError:(error)=>{
+        console.log(error)
+      },
+    },
+    
+    queryClient,
+  );
 
   const maxInfoLength = 2000;
   const infoValue = watch("description", "");
   const infoLength = infoValue ? infoValue.length : 0;
 
-  const onSubmit = () => {
-    console.log();
+  const onSubmit = (data: TAddNewPostFormSchema) => {
+    console.log(data);
+    newPost.mutate({ data, photoFile });
+  };
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPhotoFile(file);
+    console.log(file, 'тут файл')
   };
 
   return (
     <CoverBackground>
       <h2 className={styles.title}>Добавление истории о путешествии</h2>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        
+          <label>
+            <input
+              className={styles.post__selectPhoto}
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              // {...register("photo")}
+            />
+            <a className={styles.post__changePhoto}>Изменить фото</a>
+          </label>
+        
         <Input
           label="Заголовок"
           required
@@ -72,10 +126,10 @@ const AddNewPostComponent = () => {
         />
 
         <div className={styles.post__buttons}>
-            <Link to={'/'}>
-          <Button color="transparent" >← Назад</Button>
-            </Link>
-          <Button type="submit">Сохранить</Button>
+          <Link to={"/"}>
+            <Button color="transparent">← Назад</Button>
+          </Link>
+          <Button type="submit" >Сохранить</Button>
         </div>
       </Form>
     </CoverBackground>

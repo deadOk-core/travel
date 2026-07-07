@@ -15,7 +15,7 @@ import type { TAddOneCommentShema } from "../../../api/posts/posts.types";
 
 const AddCommentComponent = () => {
   const { id } = useParams<{ id: string }>();
-  const { user, isAuth } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   if (!id) {

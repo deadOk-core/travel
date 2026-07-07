@@ -13,8 +13,8 @@
     padding-bottom: 30px;
 
     &_cover {
-        display: flex;
-        justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
     }
   }
   &__title {
@@ -63,7 +63,6 @@
     text-align: right;
     color: var(--dark-gray-color);
     margin-left: auto;
-    
   }
 
   &__buttons {
