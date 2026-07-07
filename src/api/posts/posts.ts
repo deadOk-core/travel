@@ -2,7 +2,6 @@ import { z } from "zod";
 import {
   AddOneCommentShema,
   CreatePostResponseSchema,
-  CreatePostSchema,
   GetCommentsByIDShema,
   GetPostByIDShema,
   PostsShema,
