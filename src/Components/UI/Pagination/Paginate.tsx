@@ -15,22 +15,11 @@ const PaginateComponent = ({
   totalPages,
 }: PaginateProps) => {
 
-    // Функция для получения 3-х отображаемых страниц
+  // Функция для получения 3-х отображаемых страниц
   const getVisiblePages = () => {
-    // if (totalPages <= 5) {
-    //   // Если страниц мало, показываем все
-    //   return pageCount.slice(1, -1); // без первой и последней
-    // }
-
-    let start = currentPage ;
+    let start = currentPage;
     let end = currentPage + 2;
 
-    // // Корректировка для начала
-    // if (currentPage <= 2) {
-    //   start = 2;
-    //   end = 4;
-    // }
-    
     // Корректировка для конца
     if (currentPage >= totalPages - 2) {
       start = totalPages - 2;
@@ -42,24 +31,22 @@ const PaginateComponent = ({
 
   const visiblePages = getVisiblePages();
 
-
-
   return (
     <div className={styles.pag}>
       <button
+      disabled={currentPage === 1}
         className={`${styles.pag_list__button} ${currentPage === 1 ? `${styles.pag_list__active} ${styles.pag_list__edge}` : undefined}`}
         onClick={() => setCurrentPage(1)}
       >
         1
       </button>
       <button
+      disabled={currentPage === 1}
         className={`${styles.pag_list__button} ${currentPage === 1 ? `${styles.pag_list__active} ${styles.pag_list__edge}` : undefined}`}
         onClick={() => setCurrentPage(currentPage - 1)}
       >
         ←
       </button>
-
-
 
       <ul className={styles.pag_list}>
         {visiblePages.map((number) => (
@@ -74,14 +61,15 @@ const PaginateComponent = ({
         ))}
       </ul>
 
-
       <button
+      disabled={currentPage === totalPages}
         className={`${styles.pag_list__button} ${currentPage === totalPages ? `${styles.pag_list__active} ${styles.pag_list__edge}` : undefined}`}
         onClick={() => setCurrentPage(currentPage + 1)}
       >
         →
       </button>
       <button
+      disabled={currentPage === totalPages}
         className={`${styles.pag_list__button} ${currentPage === totalPages ? `${styles.pag_list__active} ${styles.pag_list__edge}` : undefined}`}
         onClick={() => setCurrentPage(totalPages)}
       >
