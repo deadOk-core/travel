@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Styles.module.scss";
 import { CoverBackground } from "../../UI/CoverBackground/CoverBackground";
@@ -10,13 +10,15 @@ import { Button } from "../../UI/Button/Button";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import { addComment } from "../../../api/posts/posts";
-import { useAuth } from "../../../api/auth/AuthContext";
 import type { TAddOneCommentShema } from "../../../api/posts/posts.types";
+import { Popup } from "../../UI/Popup/Popup";
+import { useAuthSelector } from "../../../Hooks/useAuthDispatch";
 
 const AddCommentComponent = () => {
   const { id } = useParams<{ id: string }>();
-  const { user } = useAuth();
+  const { user } = useAuthSelector();
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false)
 
   if (!id) {
     return <div>Неверный URL. Нет ID поста</div>;
@@ -29,7 +31,11 @@ const AddCommentComponent = () => {
       mutationKey: ["newComment"],
       onSuccess: (data: TAddOneCommentShema) => {
         console.log(data);
-        navigate(`/post/${id}`);
+        setShowPopup(true)
+        setTimeout(() => {
+      navigate(`/post/${id}`);
+    }, 2000); // 2 секунды
+  
       },
       onError: () => {
         setError("form", {
@@ -59,6 +65,7 @@ const AddCommentComponent = () => {
   };
 
   return (
+    <>
     <CoverBackground>
       <h2 className={styles.title}>Добавление отзыва</h2>
       {errors.form && (
@@ -112,6 +119,8 @@ const AddCommentComponent = () => {
         </div>
       </Form>
     </CoverBackground>
+    {showPopup && <Popup title='Ваш отзыв успешно добавлен' />}
+    </>
   );
 };
 

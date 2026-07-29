@@ -8,8 +8,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { TRegister } from "../../../api/auth/auth.types";
-import { useAuth } from "../../../api/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuthDispatch } from "../../../Hooks/useAuthDispatch";
+import { setTokenState } from "../../../Store/authSlice";
 
 const formSchema = z
   .object({
@@ -26,7 +27,7 @@ type FormState = z.infer<typeof formSchema>;
 
 const LoginComponent = () => {
   const navigate = useNavigate()
-  const { setTokenState } = useAuth();
+  const dispatch = useAuthDispatch()
   const {
     register: registerField, // переименовываем, чтобы не конфликтовало
     handleSubmit,
@@ -40,7 +41,7 @@ const LoginComponent = () => {
     {
       mutationFn: (data: FormState) => register(data.email, data.password),
       onSuccess: (data: TRegister) => {
-        setTokenState(data.token);
+        dispatch(setTokenState(data.token))
         navigate('/profile')
       },
       onError: () => {

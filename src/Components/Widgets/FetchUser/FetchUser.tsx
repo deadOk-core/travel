@@ -5,14 +5,15 @@ import styles from "./Styles.module.scss";
 import { Loader } from "../../UI/Loader/Loader";
 import { getUser } from "../../../api/user/user";
 import {  logout } from "../../../api/auth/auth";
-import { useAuth } from "../../../api/auth/AuthContext";
 import profileTriangle from "/src/Assets/profile-triangle.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useClickAway } from 'react-use';
+import { useAuthDispatch } from "../../../Hooks/useAuthDispatch";
+import { logoutState, setUserState } from "../../../Store/authSlice";
 
 const FetchUserComponent = () => {
   const navigate = useNavigate();
-  const { setUserState, logoutState } = useAuth();
+  const dispatch = useAuthDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
   const userLogout = useQuery(
@@ -26,7 +27,7 @@ const FetchUserComponent = () => {
   
   const handleLogout = () => {
     userLogout.refetch()
-    logoutState()
+    dispatch(logoutState())
     navigate('/')
     console.log("Вы вышли из аккаунта")
   }
@@ -42,7 +43,7 @@ const FetchUserComponent = () => {
 
   useEffect(() => {
     if (userInfo.data) {
-      setUserState(userInfo.data);
+      dispatch(setUserState(userInfo.data));
     }
   }, [userInfo.data]);
 
@@ -59,7 +60,7 @@ const FetchUserComponent = () => {
       return (
         <div className={styles.wrapp} ref={dropdownRef}>
           <button className={styles.wrapp__profile} onClick={()=>setIsOpen(!isOpen)}>
-            <img className={styles.wrapp__img} src={ `https://travelblog.skillbox.cc${userInfo.data.photo}` || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s'}></img>
+            <img className={styles.wrapp__img} src={ userInfo.data.photo ? `https://travelblog.skillbox.cc${userInfo.data.photo}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s'}></img>
             <p>
               {userInfo.data.full_name === ""
                 ? `user${userInfo.data.id}`

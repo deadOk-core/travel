@@ -12,9 +12,11 @@ import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import { createPost } from "../../../api/posts/posts";
 import type { TCreatePostSchema } from "../../../api/posts/posts.types";
+import { Popup } from "../../UI/Popup/Popup";
 
 const AddNewPostComponent = () => {
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [showPopup, setShowPopup] = useState(false)
   const navigate = useNavigate()
   
   const {
@@ -45,7 +47,10 @@ const AddNewPostComponent = () => {
       }) => createPost(data, photoFile),
       onSuccess:(data)=> {
         setPhotoFile(null)
+        setShowPopup(true)
+        setTimeout(() => {
         navigate(`/post/${data.id}`)
+    }, 2000); // 2 секунды
       },
       onError:(error)=>{
         console.log(error)
@@ -72,6 +77,8 @@ const AddNewPostComponent = () => {
   };
 
   return (
+    <>
+    
     <CoverBackground>
       <h2 className={styles.title}>Добавление истории о путешествии</h2>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -84,7 +91,7 @@ const AddNewPostComponent = () => {
               onChange={handlePhotoChange}
               // {...register("photo")}
             />
-            <a className={styles.post__changePhoto}>Изменить фото</a>
+            <a className={styles.post__changePhoto}>Добавить фото</a>
           </label>
         
         <Input
@@ -133,6 +140,8 @@ const AddNewPostComponent = () => {
         </div>
       </Form>
     </CoverBackground>
+    {showPopup && <Popup title='Ваша история успешно добавлена' />}
+    </>
   );
 };
 

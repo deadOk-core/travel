@@ -1,6 +1,5 @@
 import { memo, useEffect, useState } from "react";
 import styles from "./Styles.module.scss";
-import { useAuth } from "../../../api/auth/AuthContext";
 import { Link } from "react-router-dom";
 import { Button } from "../../UI/Button/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,13 +9,12 @@ import { queryClient } from "../../../api/queryClient";
 import { editPassword, editProfile } from "../../../api/user/user";
 import type { TEditPassword } from "../../../api/user/user.types";
 import { EditProfileSchema, type FormStateProfile } from "./schema";
+import { useAuthSelector } from "../../../Hooks/useAuthDispatch";
 
 const EditProfileComponent = () => {
-  const { user } = useAuth();
+  const { user } = useAuthSelector();
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   
-  
-
   //Изменение данных профиля
   const {
     register: registerProfile,

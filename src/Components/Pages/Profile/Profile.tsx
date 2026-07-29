@@ -1,20 +1,20 @@
 import { memo } from "react";
 import styles from "./Styles.module.scss";
-import { useAuth } from "../../../api/auth/AuthContext";
 import editIcon from "/src/Assets/edit_profile_icon.svg";
 import { Link } from "react-router-dom";
+import { useAuthSelector } from "../../../Hooks/useAuthDispatch";
 
 const ProfileComponent = () => {
-  const { user } = useAuth();
+  const { user } = useAuthSelector()
   return (
     <div className={styles.profile}>
       <div className={styles.profile__avatar}>
         <img
           className={styles.profile__img}
           src=
-             { (user?.photo  
+             { user?.photo  
       ? `https://travelblog.skillbox.cc${user.photo}` 
-      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s")
+      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCT14bv5q-M8koLAjZeTO91Su-vYa2eKnbmA&s"
           }
         ></img>
       </div>

@@ -5,19 +5,20 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Header } from "../Components/Pages/Header/Header";
 import { FetchCardList } from "../Components/Pages/FetchCardList/FetchCardList";
 import { Register } from "../Components/Pages/Register/Register";
-import { AuthProvider } from "../api/auth/AuthContext";
+import { Provider } from "react-redux";
 import { Profile } from "../Components/Pages/Profile/Profile";
 import { EditProfile } from "../Components/Pages/EditProfile/EditProfile";
 import { Post } from "../Components/Pages/Post/Post";
 import { Login } from "../Components/Pages/Login/Login";
 import { AddComment } from "../Components/Pages/AddComment/AddComment";
 import { AddNewPost } from "../Components/Pages/AddNewPost/AddNewPost";
+import { store } from '../Store/store'
 
 function App() {
   return (
-      <AuthProvider>
+      <Provider store={store}>
         {/* Чтобы запустить версию в проде, надо добавить в BrowserRouter basename="/travel-production" */}
-        <BrowserRouter basename="/travel-production">
+        <BrowserRouter >
           <Routes>
             <Route path="/" element={<OutletWrapper />}>
               <Route index element={<FetchCardList />} />
@@ -31,7 +32,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </AuthProvider>
+      </Provider>
   );
 }
 

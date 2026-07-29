@@ -1,25 +1,24 @@
 import { memo } from "react";
-
 import { Card } from "../Card/Card";
 import styles from "./Style.module.scss";
 import { usePagination, type TCardDataArray } from "../../../Hooks/Pagination";
 import { Paginate } from "../../UI/Pagination/Paginate";
 import { Button } from "../../UI/Button/Button";
 import type { TGetPosts } from "../../../api/posts/posts.types";
-import { useAuth } from "../../../api/auth/AuthContext";
 import { Link } from "react-router-dom";
+import { useAuthSelector } from "../../../Hooks/useAuthDispatch";
 
 type TCards = {
   cards: TGetPosts[];
 }
 
 const CardListComponent = ({cards}: TCards) => {
-  const {isAuth} = useAuth()
+  const { isAuth } = useAuthSelector()
   const dataCards: TCardDataArray = {
     data: cards,
   };
 
-  const { currentCards, pageCount, setCurrentPage, currentPage } = usePagination(dataCards);
+  const { currentCards, pageCount, setCurrentPage, currentPage, totalPages } = usePagination(dataCards);
 
   return (
     <>
@@ -31,7 +30,7 @@ const CardListComponent = ({cards}: TCards) => {
         ))}
       </ul>
 
-      <Paginate pageCount={pageCount} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
+      <Paginate pageCount={pageCount} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages}/>
       
       <Link to={'/newPost'}>
       <Button centered disabled={!isAuth}>Добавить мое путешествие</Button>

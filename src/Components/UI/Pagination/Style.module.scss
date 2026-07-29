@@ -1,8 +1,14 @@
+.pag {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+  gap: 15px;
+}
+
 .pag_list {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-bottom: 60px;
 
   &__button {
     width: 30px;
@@ -18,6 +24,10 @@
   }
 
   &__active {
-    background-color: var(--yellow-dark-color);
+    background-color: yellowgreen;
+  }
+
+  &__edge {
+    opacity: 0;
   }
 }

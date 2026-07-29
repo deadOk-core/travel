@@ -4,11 +4,11 @@ import styles from "./Styles.module.scss";
 import logo from "../../../Assets/logo.svg";
 import { Button } from "../../UI/Button/Button";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../../../api/auth/AuthContext";
 import { FetchUser } from "../../Widgets/FetchUser/FetchUser";
+import { useAuthSelector } from "../../../Hooks/useAuthDispatch";
 
 const HeaderComponent = () => {
-  const {  isAuth } = useAuth();
+  const { isAuth } = useAuthSelector();
 
   const location = useLocation();
   const mainPage = location.pathname === "/"
