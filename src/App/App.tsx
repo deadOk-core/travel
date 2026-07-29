@@ -65,7 +65,7 @@ function App() {
   return (
     <Provider store={store}>
       {/* Чтобы запустить версию в проде, надо добавить в BrowserRouter basename="/travel-production" */}
-      <BrowserRouter>
+      <BrowserRouter basename="/travel-production">
         <Routes>
           <Route path="/" element={<OutletWrapper />}>
             <Route index element={<FetchCardList />} />
