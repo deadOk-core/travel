@@ -60,10 +60,12 @@ const AddNewPost = lazy(() =>
   })),
 );
 
+const basename = import.meta.env.PROD ? '/travel-production' : '';
+
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter basename={import.meta.env.VITE_BASENAME}>
+      <BrowserRouter basename={basename}>
         <Routes>
           <Route path="/" element={<OutletWrapper />}>
             <Route index element={<FetchCardList />} />
