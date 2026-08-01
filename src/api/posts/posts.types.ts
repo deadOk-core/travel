@@ -9,6 +9,7 @@ export const PostsShema = z.object({
   excerpt: z.string(),
   photo: z.string(),
 });
+export const PostsArrayShema = z.array(PostsShema);
 export type TGetPosts = z.infer<typeof PostsShema>;
 
 //получить пост по id
@@ -46,38 +47,23 @@ export const GetCommentsByIDShema = z.array(
 
 export type TGetCommentsByID = z.infer<typeof GetCommentsByIDShema>;
 
-
-// export const AddCommentShema = z.array(
-//   z.object({
-//   full_name: z.string(),
-//   comment: z.string()
-//   }),
-// );
-
-// export type TAddCommentShema = z.infer<typeof AddCommentShema>;
-
-
-export const AddOneCommentShema = 
-  z.object({
-    author_name: z.string(),
-    comment: z.string(),
-    created_at: z.iso.datetime(),
-  })
-
+export const AddOneCommentShema = z.object({
+  author_name: z.string(),
+  comment: z.string(),
+  created_at: z.iso.datetime(),
+});
 
 export type TAddOneCommentShema = z.infer<typeof AddOneCommentShema>;
 
-
 //Создать новый пост
 
-export const CreatePostSchema = 
-  z.object({
-    title: z.string(),
-    description: z.string(),
-    country: z.string(),
-    city: z.string(),
-    photo: z.string().optional(),
-  })
+export const CreatePostSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  country: z.string(),
+  city: z.string(),
+  photo: z.string().optional(),
+});
 
 export type TCreatePostSchema = z.infer<typeof CreatePostSchema>;
 
@@ -92,7 +78,7 @@ export const CreatePostResponseSchema = z.object({
   userInfo: z.object({
     full_name: z.string(),
     city: z.string(),
-    country: z.string().optional().default(''),
+    country: z.string().optional().default(""),
     bio: z.string(),
   }),
 });

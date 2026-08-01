@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "../../../api/queryClient";
 import styles from "./Styles.module.scss";
 import { Loader } from "../../UI/Loader/Loader";
@@ -16,20 +16,16 @@ const FetchUserComponent = () => {
   const dispatch = useAuthDispatch();
   const [isOpen, setIsOpen] = useState(false);
 
-  const userLogout = useQuery(
-    {
-      queryFn: () => logout(),
-      queryKey: ["logout"],
-      enabled: false,
-    },
-    queryClient,
-  );
+  const logoutMutation = useMutation({
+  mutationFn: logout,
+  onSuccess: () => {
+    dispatch(logoutState());
+    navigate("/");
+  },
+}, queryClient);
   
   const handleLogout = () => {
-    userLogout.refetch()
-    dispatch(logoutState())
-    navigate('/')
-    console.log("Вы вышли из аккаунта")
+    logoutMutation.mutate();
   }
 
   const userInfo = useQuery(

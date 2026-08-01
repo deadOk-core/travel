@@ -1,73 +1,41 @@
-import { BASE_URL } from '../client';
-import { type TEditPassword, type TEditProfile,  type TUser } from './user.types';
+import api from "../client";
+import {
+  EditPasswordProfileSchema,
+  EditUserProfileSchema,
+  UserSchema,
+  type TEditPassword,
+  type TEditProfile,
+  type TUser,
+} from "./user.types";
 
 // Получение пользователя
 
 export const getUser = async (): Promise<TUser> => {
-    const response = await fetch(`${BASE_URL}/api/user`, {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      "Content-Type": "application/json",
-    },
-    method: "GET",
-  });
-    if (!response.ok) {
-        throw new Error(`HTTP getPosts ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(data)
-    return data
+  const { data } = await api.get("/api/user");
+  return UserSchema.parse(data);
 };
 
-
-
-// api/user/user.api.ts
-export const editProfile = async (data: TEditProfile, photoFile?: File | null) => {
-  const token = localStorage.getItem('token');
+export const editProfile = async (
+  dataUser: TEditProfile,
+  photoFile?: File | null,
+) => {
   const formData = new FormData();
-  
-  // Добавляем текстовые поля (только если не пустые)
-  if (data.full_name) formData.append('full_name', data.full_name);
-  if (data.city) formData.append('city', data.city);
-  if (data.bio) formData.append('bio', data.bio);
-  // Добавляем фото как ФАЙЛ (не строка)
+
+  if (dataUser.full_name) formData.append("full_name", dataUser.full_name);
+  if (dataUser.city) formData.append("city", dataUser.city);
+  if (dataUser.bio) formData.append("bio", dataUser.bio);
+
   if (photoFile) {
-    formData.append('photo', photoFile); // сам файл
+    formData.append("photo", photoFile);
   }
-  
-  const response = await fetch(`${BASE_URL}/api/user`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/json',
-    },
-    body: formData,
-  });
-  
-  if (!response.ok) {
-    throw new Error(`Ошибка ${response.status}`);
-  }
-  
-  const responseData = await response.json();
-  return responseData ;
+
+  const { data } = await api.post("/api/user", formData);
+  return EditUserProfileSchema.parse(data);
 };
 
-
-export const editPassword = async (data: TEditPassword) => {
-    const response = await fetch(`${BASE_URL}/api/user/password`, {
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      "Content-Type": "application/json",
-    },
-    method: "PATCH",
-    body: JSON.stringify({
-      password: data.newPassword
-    })
+export const editPassword = async (dataPassword: TEditPassword) => {
+  const { data } = await api.patch("/api/user/password", {
+    password: dataPassword.newPassword,
   });
-    if (!response.ok) {
-        throw new Error(`HTTP getPosts ${response.status}`);
-    }
-    const datsa = await response.json();
-    console.log(data)
-    return datsa
+  return EditPasswordProfileSchema.parse(data);
 };
